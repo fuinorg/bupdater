@@ -1,0 +1,12 @@
+.*
+!.gitignore
+!.gitkeep
+!.mvn
+!.github
+!.sonarlint
+!.devcontainer
+target
+META-INF
+*.log
+*.iml
+pom.xml.versionsBackup

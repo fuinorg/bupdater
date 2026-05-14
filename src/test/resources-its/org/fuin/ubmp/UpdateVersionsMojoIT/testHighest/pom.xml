@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>foo</groupId>
+    <artifactId>bar</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <commons-io.version>2.17.0</commons-io.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <!-- Should be updated (version in dependency) -->
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.16.0</version>
+        </dependency>
+        <dependency>
+            <!-- Should be updated (version in property) -->
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Should be updated (single configured artifact) -->
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.17.3</version>
+            </dependency>
+            <dependency>
+                <!-- Will NOT be updated (not configured artifact) -->
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.17.3</version>
+            </dependency>
+            <dependency>
+                <!-- Should be updated (group configured) -->
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>10.20.0</version>
+            </dependency>
+            <dependency>
+                <!-- Should be updated (group configured) -->
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-derby</artifactId>
+                <version>10.20.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.fuin</groupId>
+                <artifactId>update-bom-maven-plugin</artifactId>
+                <version>@project.version@</version>
+                <configuration>
+                    <strategy>HIGHEST</strategy>
+                    <framework-boms>
+                        <framwork-bom>io.quarkus:quarkus-bom:3.24.4</framwork-bom>
+                        <framework-bom>org.springframework.boot:spring-boot-dependencies:3.5.3</framework-bom>
+                    </framework-boms>
+                    <fixed-versions>
+                        <fixed-version>com.fasterxml.jackson.core:jackson-annotations:2.18.3</fixed-version>
+                        <fixed-version>org.flywaydb:*:10.20.1</fixed-version>
+                    </fixed-versions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
