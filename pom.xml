@@ -29,7 +29,7 @@
 
 	<properties>
         <itf.version>0.13.1</itf.version>
-        <resolverVersion>1.9.22</resolverVersion>
+        <resolverVersion>1.9.27</resolverVersion>
         <mavenVersion>3.3.9</mavenVersion>
     </properties>
 
