@@ -1,0 +1,16 @@
+org:
+  fuin:
+    bupdater:
+      includes:
+        - "com.fasterxml.jackson.datatype:^.*$"
+        - "org.glassfish.jersey.core:jersey-common"
+        - "org.eclipse.persistence:org.eclipse.persistence.jpa"
+      fixedVersions:
+        - "com.fasterxml.jackson.datatype:jackson-datatype-eclipse-collections:2.21.2"
+      frameworks:
+        - "org.glassfish.jersey:jersey-bom:3.1.11"
+        - "com.fasterxml.jackson:jackson-bom:2.21.2"
+      pom-file: app/src/test/resources/pom.xml
+      printType: all
+      printFile: app/target/app-test.html
+      strategy: highest

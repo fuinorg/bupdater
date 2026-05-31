@@ -1,0 +1,372 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.fuin</groupId>
+        <artifactId>pom</artifactId>
+        <version>2.0.2</version>
+    </parent>
+
+    <groupId>org.fuin.bupdater</groupId>
+    <artifactId>bupdater-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>Updates a Maven BOM based on other BOMs like Spring Boot and/or Quarkus (PARENT)</description>
+    <url>https://github.com/fuinorg/update-bom-maven-plugin/</url>
+
+    <scm>
+        <url>https://github.com/fuinorg/update-bom-maven-plugin/</url>
+        <connection>scm:git:git://github.com/fuinorg/update-bom-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:fuinorg/update-bom-maven-plugin.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/fuinorg/update-bom-maven-plugin/issues</url>
+    </issueManagement>
+
+    <properties>
+
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>fuinorg</sonar.organization>
+        <sonar.projectKey>bupdater</sonar.projectKey>
+        <!-- Picks up both the unit-test and the integration-test coverage reports per module -->
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+        <!-- Only the "bupdater-core" and "bupdater-maven-plugin module" are published to Maven Central;
+             every other module overrides this back to false / leaves it true -->
+        <skipPublishing>true</skipPublishing>
+
+        <aether-api.version>1.9.27</aether-api.version>
+        <assertj-core.version>3.27.7</assertj-core.version>
+        <error-prone.version>2.36.0</error-prone.version>
+        <itf.version>0.13.1</itf.version>
+        <javax.inject.version>1</javax.inject.version>
+        <jspecify.version>1.0.0</jspecify.version>
+        <junit-jupiter.version>5.12.2</junit-jupiter.version>
+        <maven-artifact.version>3.9.15</maven-artifact.version>
+        <maven-core.version>3.9.16</maven-core.version>
+        <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+        <maven-model.version>3.9.16</maven-model.version>
+        <maven-plugin-annotations.version>3.15.1</maven-plugin-annotations.version>
+        <maven-plugin-api.version>3.9.16</maven-plugin-api.version>
+        <maven-plugin-plugin.version>3.15.1</maven-plugin-plugin.version>
+        <mima.version>2.4.44</mima.version>
+        <nullaway.version>0.12.3</nullaway.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <spring-boot-dependencies.version>4.0.6</spring-boot-dependencies.version>
+        <utils4j.version>0.15.0</utils4j.version>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        
+    </properties>
+
+    <modules>
+        <module>core</module>
+        <module>plugin</module>
+        <module>app</module>
+    </modules>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.fuin.bupdater</groupId>
+                <artifactId>bupdater-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${maven-plugin-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>${maven-plugin-annotations.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-core</artifactId>
+                <version>${maven-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.soebes.itf.jupiter.extension</groupId>
+                <artifactId>itf-jupiter-extension</artifactId>
+                <version>${itf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.soebes.itf.jupiter.extension</groupId>
+                <artifactId>itf-assertj</artifactId>
+                <version>${itf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${javax.inject.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>eu.maveniverse.maven.mima</groupId>
+                <artifactId>context</artifactId>
+                <version>${mima.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>eu.maveniverse.maven.mima.extensions</groupId>
+                <artifactId>mmr</artifactId>
+                <version>${mima.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>eu.maveniverse.maven.mima.runtime</groupId>
+                <artifactId>standalone-sisu</artifactId>
+                <version>${mima.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>eu.maveniverse.maven.mima.runtime</groupId>
+                <artifactId>embedded-maven</artifactId>
+                <version>${mima.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>${maven-model.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin</groupId>
+                <artifactId>utils4j</artifactId>
+                <version>${utils4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jspecify</groupId>
+                <artifactId>jspecify</artifactId>
+                <version>${jspecify.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation-api.version}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.6.2</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-java-and-maven-version</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>${java.version}</version>
+                                        <message>Java ${java.version} or later is required!</message>
+                                    </requireJavaVersion>
+                                    <requireMavenVersion>
+                                        <version>3.9.16</version>
+                                        <message>Please use at least Maven 3.9.16</message>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <fork>true</fork>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>com.google.errorprone</groupId>
+                                <artifactId>error_prone_core</artifactId>
+                                <version>${error-prone.version}</version>
+                            </path>
+                            <path>
+                                <groupId>com.uber.nullaway</groupId>
+                                <artifactId>nullaway</artifactId>
+                                <version>${nullaway.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                        <compilerArgs>
+                            <arg>-XDcompilePolicy=simple</arg>
+                            <arg>--should-stop=ifError=FLOW</arg>
+                            <arg>-Xplugin:ErrorProne -XepDisableAllChecks -XepExcludedPaths:.*/generated-sources/.* -Xep:NullAway:ERROR -XepOpt:NullAway:AnnotatedPackages=org.fuin.bupdater -XepOpt:NullAway:ExcludedFieldAnnotations=org.apache.maven.plugins.annotations.Parameter,org.apache.maven.plugins.annotations.Component</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+                            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+                            <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+                            <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-descriptor</id>
+                            <phase>process-classes</phase>
+                        </execution>
+                        <execution>
+                            <id>help-goal</id>
+                            <goals>
+                                <goal>helpmojo</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.soebes.itf.jupiter.extension</groupId>
+                    <artifactId>itf-maven-plugin</artifactId>
+                    <version>${itf.version}</version>
+                    <executions>
+                        <execution>
+                            <id>installing</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>install</goal>
+                                <goal>resources-its</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <maven.version>${maven.version}</maven.version>
+                            <maven.home>${maven.home}</maven.home>
+                        </systemPropertyVariables>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.7.3</version>
+                    <configuration>
+                        <flattenMode>oss</flattenMode>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten.clean</id>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+        <plugins>
+
+            <!-- Records code coverage for all modules; the report is created via "jacoco:report"
+                 and picked up by "sonar:sonar" (see the GitHub Actions build) -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
