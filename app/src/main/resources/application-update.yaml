@@ -66,6 +66,7 @@ org:
         - "org.jboss.logging:jboss-logging"
         - "org.jboss.weld.se:weld-se-core"
         - "org.jooq:joor"
+        - "org.jspecify:jspecify"
         - "org.junit.jupiter:junit-jupiter"
         - "org.junit.jupiter:junit-jupiter-engine"
         - "org.junit.platform:junit-platform-suite-api"
